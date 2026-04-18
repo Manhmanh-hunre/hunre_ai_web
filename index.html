@@ -26,7 +26,15 @@
             padding: 20px;
             overflow: hidden;
         }
+
+
+
+        /* thay đổi giao diện điện thoại */
+
+
         
+
+
         
         .bot-message pre {
     background: #282c34;
@@ -59,7 +67,9 @@
         #chat-header { 
             background: linear-gradient(135deg,#7bd886 20%,#23d537 50% ,#10af22 100%);
             color: white;
-            padding: 16px 20px;
+            /* padding: 16px 20px; */
+            padding-top: 45px !important;  /* Giảm khoảng cách phía trên */
+            padding-bottom: 20px !important; /* Có thể tăng phía dưới để bù lại */
             text-align: center;
             font-weight: 600;
             position: relative;
@@ -236,12 +246,24 @@
     flex: 0 0 280px; /* Cố định độ rộng 280px */
     background: rgba(255, 255, 255, 0.9); /* Màu trắng trong suốt nhẹ */
     backdrop-filter: blur(10px);
-    border-radius: 20px;
+    border-radius: 0 20px 20px 0 !important;
     display: flex;
     flex-direction: column;
     padding: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    /* box-shadow: 0 10px 30px rgba(0,0,0,0.1); */
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.15) !important;
     overflow: hidden;
+    position: fixed !important;
+        top: 0 !important; /* Điều chỉnh khoảng cách từ trên xuống */
+        left: 0px !important;  /* Điều chỉnh khoảng cách từ trái sang */
+        height: 100vh !important; /* Chiều cao cố định để không bị lướt trang */
+        width: 370px !important; /* Độ rộng cố định */
+        z-index: 10000 !important;      /* Số cực lớn để nó đè lên logo và tên trường */
+        transform: translateX(-100%); /* Đẩy toàn bộ sidebar sang trái để ẩn đi */
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important; /* Tạo hiệu ứng trượt mượt mà */
+        position: fixed !important; 
+        left: 0 !important;
+        top: 0 !important;
 }
 
 /* Nút chat mới */
@@ -364,9 +386,19 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    z-index: 99999; 
+    z-index: 9998; 
     pointer-events: none; 
 }
+    .fixed-branding img {
+    flex-shrink: 0;        /* Giữ nguyên kích thước logo, không cho nó bị bóp méo */
+}
+
+.branding-text {
+    white-space: nowrap;    /* Lệnh này quan trọng nhất: Cấm xuống dòng */
+    font-size: 13px;        /* Bạn có thể giảm nhỏ size này nếu tên trường dài quá bị tràn màn hình */
+}
+
+
 
 .branding-logo {
     height: 45px;
@@ -384,15 +416,15 @@ body {
 
 /* ===== HAMBURGER MENU BUTTON ===== */
 .hamburger-btn {
-    display: none;
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    z-index: 10001;
+    display: flex !important;
+    position: absolute ;
+    top: 48px !important;
+    left: 15px !important;
+    z-index: 9999 !important;
     background: white;
     border: none;
-    width: 45px;
-    height: 45px;
+    width: 30px !important;
+    height: 30px !important;
     border-radius: 50%;
     cursor: pointer;
     flex-direction: column;
@@ -405,8 +437,8 @@ body {
 
 .hamburger-btn span {
     display: block;
-    width: 24px;
-    height: 3px;
+    width: 16px !important;
+    height: 3px !important;
     background: #28a745;
     border-radius: 2px;
     transition: all 0.3s ease;
@@ -437,7 +469,7 @@ body {
     width: 100%;
     border-collapse: collapse;
     margin: 10px 0;
-    font-size: 13px;
+    font-size: 13px ;
     background: white;
     border-radius: 8px;
     overflow: hidden;
@@ -580,7 +612,7 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 99999;
+    z-index: 9999;
     justify-content: center;
     align-items: center;
 }
@@ -680,22 +712,30 @@ body {
 
 /* ===== RESPONSIVE MOBILE ===== */
 @media (max-width: 768px) {
+    
+    
     body {
         padding: 0;
         height: 100vh;
     }
 
     .fixed-branding {
-        top: 10px;
-        left: 8px;
+        display: flex;
+    align-items: center;    /* Quan trọng: Căn logo và chữ thẳng hàng dọc */
+    gap: 10px;              /* Khoảng cách giữa logo và chữ */
+    
+    /* Để di chuyển cả cụm này */
+    position: absolute;     
+    top: 10px;              /* Chỉnh khoảng cách so với mép trên */
+    left: 15px;
     }
 
     .branding-logo {
-        height: 45px;
+        height: 40px;
     }
 
     .branding-text {
-        font-size: 11px;
+        font-size: 14px;
         white-space: normal;
         max-width: 360px;
         overflow: visible;
@@ -707,8 +747,8 @@ body {
     .hamburger-btn {
         display: flex;
         position: absolute;
-        top: 50px;
-        left: 10px;
+        top: 55px;
+        left: 15px;
         width: 38px;
         height: 38px;
         z-index: 10001;
@@ -740,8 +780,10 @@ body {
         overflow-y: auto;
     }
 
+    
+
     #sidebar.active {
-        left: 30px;
+        transform: translateX(0) !important;
     }
 
     #chat-container {
@@ -761,7 +803,7 @@ body {
     }
 
     #chat-header h1 {
-        font-size: 18px;
+        font-size: 25px !important;
         margin-bottom: 4px;
     }
 
@@ -801,6 +843,20 @@ body {
         font-size: 21.6px;
         flex-shrink: 0;
     }
+    .top-bar {
+    background: #f8f9fa;
+    font-size: 10px;        /* Bạn có thể tăng lên 11px nếu muốn */
+    font-weight: bold;
+    text-align: center;
+    padding: 5px 10px;
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    
+    /* CÁC DÒNG QUAN TRỌNG ĐỂ THÀNH 1 DÒNG */
+    white-space: nowrap;    /* Không cho phép xuống dòng */
+    overflow: hidden;       /* Ẩn phần thừa nếu màn hình quá nhỏ */
+    display: block;         /* Đảm bảo nó chiếm hết chiều ngang */
+   }
 }
 
 @media (max-width: 480px) {
@@ -839,7 +895,7 @@ body {
 
 <div class="fixed-branding">
     <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/HUNRE_Logo.png" alt="Logo" class="branding-logo">
-    <span class="branding-text">TRƯỜNG ĐẠI HỌC TÀI NGUYÊN VÀ MÔI TRƯỜNG HÀ NỘI</span>
+    <span class="branding-text" style="white-space: nowrap;" >TRƯỜNG ĐẠI HỌC TÀI NGUYÊN VÀ MÔI TRƯỜNG HÀ NỘI</span>
 </div>
 
 
@@ -999,21 +1055,6 @@ if (loadingElement) {
 
     let i = 0;
     const speed = 15; // Tốc độ gõ (ms), có thể chỉnh lên 30 nếu muốn chậm hơn
-    
-    // function typeWriter() {
-    // if (i < botReply.length) {
-    //     // Chỉ cập nhật nội dung khi i tăng lên
-    //     const currentText = botReply.substring(0, i + 1);
-    //     loadingElement.innerHTML = marked.parse(currentText);
-        
-    //     i++;
-        
-    //     // Tự động cuộn xuống cuối khi đang gõ
-    //     chatBox.scrollTop = chatBox.scrollHeight;
-        
-    //     // Tốc độ gõ: 15-20ms là con số lý tưởng để mắt người theo kịp
-    //     setTimeout(typeWriter, 20); 
-    // }
 
 
     /* Ép tất cả các thành phần bên trong danh sách phải sát nhau */
