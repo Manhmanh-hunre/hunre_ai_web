@@ -62,6 +62,7 @@
             padding: 16px 20px;
             text-align: center;
             font-weight: 600;
+            position: relative;
         }
         
         #chat-header h1 {
@@ -357,38 +358,78 @@ body {
 
 
     .fixed-branding {
-    /* 1. Tách biệt hoàn toàn khỏi dòng chảy của code */
     position: fixed; 
-    
-    /* 2. Đóng đinh vị trí chính xác ở góc trái trên cùng */
     top: 7px; 
     left: 20px;
-    
-    /* 3. Hiển thị nội dung trên một hàng */
     display: flex;
     align-items: center;
     gap: 10px;
-    
-    /* 4. Đảm bảo nó nằm trên tất cả các lớp khác (z-index cao) */
     z-index: 99999; 
-    
-    /* 5. Quan trọng: không chiếm diện tích thực tế, không đẩy các mục khác */
     pointer-events: none; 
 }
 
 .branding-logo {
-    height: 50px; /* To nhỏ tùy bạn chỉnh */
+    height: 50px;
     width: auto;
 }
 
 .branding-text {
-    color: rgb(2, 124, 28); /* Đổi màu tùy ý */
+    color: rgb(2, 124, 28);
     font-size: 18px;
     font-weight: bold;
     text-transform: uppercase;
-    /* Đổ bóng để nhìn rõ trên mọi nền ảnh */
     text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8); 
     white-space: nowrap;
+}
+
+/* ===== HAMBURGER MENU BUTTON ===== */
+.hamburger-btn {
+    display: none;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 10001;
+    background: white;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    pointer-events: auto;
+}
+
+.hamburger-btn span {
+    display: block;
+    width: 24px;
+    height: 3px;
+    background: #28a745;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.hamburger-btn:hover {
+    background: #f0f0f0;
+}
+
+/* Sidebar overlay trên mobile */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+}
+
+.sidebar-overlay.active {
+    display: block;
 }
 
 /* CSS cho bảng lịch thi */
@@ -637,7 +678,136 @@ body {
     transform: scale(1.05);
 }
 
-    
+/* ===== RESPONSIVE MOBILE ===== */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        height: 100vh;
+    }
+
+    .fixed-branding {
+        top: 5px;
+        left: 60px;
+    }
+
+    .branding-logo {
+        height: 35px;
+    }
+
+    .branding-text {
+        font-size: 13px;
+        white-space: normal;
+        max-width: 200px;
+        line-height: 1.2;
+    }
+
+    .hamburger-btn {
+        display: flex;
+    }
+
+    #main-layout {
+        flex-direction: column;
+        height: 90vh;
+        gap: 0;
+    }
+
+    #sidebar {
+        position: fixed;
+        top: 0;
+        left: -280px;
+        width: 280px;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.95);
+        z-index: 10000;
+        border-radius: 0;
+        padding: 20px;
+        transition: left 0.3s ease;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+        overflow-y: auto;
+    }
+
+    #sidebar.active {
+        left: 0;
+    }
+
+    #chat-container {
+        flex: 1;
+        max-width: 100%;
+        height: 100%;
+        border-radius: 15px;
+        margin-right: 0;
+    }
+
+    #chat-header {
+        padding: 12px 15px;
+        padding-left: 60px;
+    }
+
+    #chat-header h1 {
+        font-size: 18px;
+        margin-bottom: 2px;
+    }
+
+    #chat-header p {
+        font-size: 12px;
+    }
+
+    #chat-box {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .message {
+        max-width: 90%;
+        font-size: 13px;
+    }
+
+    #input-area {
+        padding: 10px;
+        gap: 8px;
+    }
+
+    #user-input {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    #send-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .branding-logo {
+        height: 30px;
+    }
+
+    .branding-text {
+        font-size: 11px;
+        max-width: 150px;
+    }
+
+    #sidebar {
+        width: 75vw;
+        left: -75vw;
+    }
+
+    #chat-header h1 {
+        font-size: 16px;
+    }
+
+    #chat-header p {
+        font-size: 11px;
+    }
+
+    .message {
+        max-width: 85%;
+        font-size: 12px;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -682,6 +852,11 @@ body {
 
 <div id="chat-container">
     <div id="chat-header">
+        <button class="hamburger-btn" id="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
         <h1> HUNRE AI</h1>
         <p>Cố vấn học tập ảo của trường Đại học Tài nguyên và Môi trường Hà Nội</p>
     </div>
@@ -692,6 +867,8 @@ body {
         <button id="send-btn" onclick="sendMessage()">➤</button>
     </div>
 </div>
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
 
 <script>
     // 1. HÀM TẠO VÀ LẤY SESSION ID
@@ -876,6 +1053,40 @@ function startNewChat() {
 
 // 3. Gán sự kiện click cho nút
 newChatBtn.addEventListener('click', startNewChat);
+
+// ===== HAMBURGER MENU - MOBILE =====
+const hamburgerBtn = document.getElementById('hamburger-btn');
+const sidebar = document.getElementById('sidebar');
+const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+// Mở sidebar
+hamburgerBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    sidebar.classList.add('active');
+    sidebarOverlay.classList.add('active');
+});
+
+// Đóng sidebar khi click vào overlay
+sidebarOverlay.addEventListener('click', function() {
+    sidebar.classList.remove('active');
+    sidebarOverlay.classList.remove('active');
+});
+
+// Đóng sidebar khi click vào menu items
+const menuItems = document.querySelectorAll('.menu-item, .history-item');
+menuItems.forEach(item => {
+    item.addEventListener('click', function() {
+        sidebar.classList.remove('active');
+        sidebarOverlay.classList.remove('active');
+    });
+});
+
+// Đóng sidebar khi bấm nút "Đoạn chat mới"
+const newChatBtnMobile = document.getElementById('new-chat-btn');
+newChatBtnMobile.addEventListener('click', function() {
+    sidebar.classList.remove('active');
+    sidebarOverlay.classList.remove('active');
+});
 
 // ============ LỊCH THI ============
 // Dữ liệu lịch thi
