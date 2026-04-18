@@ -681,13 +681,13 @@ body {
 /* ===== RESPONSIVE MOBILE ===== */
 @media (max-width: 768px) {
     body {
-        padding: 10px;
+        padding: 0;
         height: 100vh;
     }
 
     .fixed-branding {
-        top: 10px;
-        left: 10px;
+        top: 8px;
+        left: 8px;
     }
 
     .branding-logo {
@@ -695,11 +695,11 @@ body {
     }
 
     .branding-text {
-        font-size: 12px;
-        white-space: normal;
-        max-width: 140px;
-        line-height: 1.15;
-        word-wrap: break-word;
+        font-size: 11px;
+        white-space: nowrap;
+        max-width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .hamburger-btn {
@@ -734,15 +734,15 @@ body {
     #chat-container {
         flex: 1;
         max-width: 100%;
+        width: 100%;
         height: 100%;
         border-radius: 0;
-        margin-right: 0;
         margin: 0;
         padding: 0;
     }
 
     #chat-header {
-        padding: 55px 12px 12px 12px;
+        padding: 60px 0 12px 0;
         text-align: center;
     }
 
@@ -753,7 +753,7 @@ body {
 
     #chat-header p {
         font-size: 11px;
-        line-height: 1.3;
+        padding: 0 12px;
     }
 
     #chat-box {
@@ -767,9 +767,11 @@ body {
     }
 
     #input-area {
-        padding: 10px;
+        padding: 10px 0;
         gap: 8px;
-        margin-bottom: 8px;
+        margin-bottom: 0;
+        border-left: none;
+        border-right: none;
     }
 
     #user-input {
