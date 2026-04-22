@@ -941,6 +941,29 @@ body {
     overflow: hidden;       /* Ẩn phần thừa nếu màn hình quá nhỏ */
     display: block;         /* Đảm bảo nó chiếm hết chiều ngang */
    }
+
+    /* Bắt đầu code sửa bảng - CHỈ CHẠY TRÊN MOBILE */
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto; /* Cho phép vuốt ngang */
+        -webkit-overflow-scrolling: touch; /* Vuốt mượt trên iPhone */
+        margin: 10px 0;
+        border: 1px solid #eee;
+        border-radius: 8px;
+    }
+
+    .table-responsive table {
+        min-width: 600px !important; /* Ép bảng rộng ra để không bị dồn chữ */
+        width: auto;
+    }
+
+    .table-responsive th, 
+    .table-responsive td {
+        white-space: nowrap !important; /* Chữ nằm trên 1 dòng, không bị đè lên nhau */
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+
 }
 
 @media (max-width: 480px) {
@@ -1357,7 +1380,10 @@ const classScheduleData = {
 
 // Hàm hiển thị lịch học
 function displayClassSchedule() {
+    // let html = '<div class="schedule-header">LỊCH HỌC TUẦN</div>';
     let html = '<div class="schedule-header">LỊCH HỌC TUẦN</div>';
+    // Giữ nguyên wrapper cũ của bạn nếu cần, nhưng phải thêm table-responsive ở đây
+    html += '<div class="class-schedule-wrapper table-responsive">';
     html += '<div class="class-schedule-wrapper">';
     
     const days = ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'Chủ nhật'];
@@ -1471,7 +1497,9 @@ function showClassDetail(classItem) {
 
 // Hàm hiển thị lịch thi
 function displayExamSchedule() {
-    let tableHTML = '<div class="schedule-header">LỊCH THI CÁ NHÂN</div>';
+    let tableHTML = '<h3 style="text-align: center; margin-bottom: 10px;">Lịch thi cá nhân</h3>';
+
+    // let tableHTML = '<div class="schedule-header">LỊCH THI CÁ NHÂN</div>';
     tableHTML += '<div class="exam-schedule-wrapper">';
     tableHTML += '<table class="exam-schedule-table">';
     tableHTML += '<thead><tr>';
@@ -1504,6 +1532,8 @@ function displayExamSchedule() {
     tableHTML += '</tbody>';
     tableHTML += '</table>';
     tableHTML += '</div>';
+
+    
     
     // Hiển thị bảng trong chat box
     const msgDiv = document.createElement('div');
@@ -1511,10 +1541,13 @@ function displayExamSchedule() {
     msgDiv.innerHTML = tableHTML;
     chatBox.appendChild(msgDiv);
     chatBox.scrollTop = chatBox.scrollHeight;
+    
 }
 
 // ============ BẢNG ĐIỂM ============
+
 // Dữ liệu bảng điểm
+
 const gradeData = [
     {
         stt: 1,
@@ -1592,6 +1625,8 @@ const gradeData = [
 
 // Hàm hiển thị bảng điểm
 function displayGradeTable() {
+    
+    // let tableHTML = '<div class="schedule-header">BẢNG ĐIỂM CÁ NHÂN</div>';
     let tableHTML = '<div class="schedule-header">BẢNG ĐIỂM CÁ NHÂN</div>';
     tableHTML += '<div class="exam-schedule-wrapper">';
     tableHTML += '<table class="exam-schedule-table">';
