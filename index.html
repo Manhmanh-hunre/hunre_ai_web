@@ -904,7 +904,9 @@ body {
     }
 
     .bot-message {
-        align-self: flex-start;
+        /* align-self: flex-start; */
+    max-width: 95% !important;
+    width: 95% !important; 
     }
 
     #input-area {
@@ -953,15 +955,36 @@ body {
     }
 
     .table-responsive table {
-        min-width: 600px !important; /* Ép bảng rộng ra để không bị dồn chữ */
-        width: auto;
+        /* min-width: 600px !important; //Ép bảng rộng ra để không bị dồn chữ
+        width: auto;  */
+        width: max-content !important; /* Bảng tự rộng theo nội dung */
+        min-width: 800px !important;  /* Độ rộng tối thiểu để không bị tràn chữ */
+        display: table !important;
+        border-collapse: collapse !important;
+        table-layout: auto !important; /* Tự động giãn ô theo chữ */
+
     }
 
     .table-responsive th, 
     .table-responsive td {
-        white-space: nowrap !important; /* Chữ nằm trên 1 dòng, không bị đè lên nhau */
+        /* white-space: nowrap !important; //Chữ nằm trên 1 dòng, không bị đè lên nhau 
         font-size: 13px;
-        padding: 8px 12px;
+        padding: 8px 12px; */
+
+        white-space: normal !important; /* Cho phép xuống dòng nếu cần */
+        word-wrap: break-word !important;
+        padding: 8px 5px !important;
+        font-size: 12px !important;
+        min-width: 100px; /* Đảm bảo ô đủ to để chứa nội dung */
+        vertical-align: middle;
+
+    }
+
+    .class-item {
+        width: 100% !important;
+        box-sizing: border-box;
+        margin: 2px 0;
+        padding: 4px !important;
     }
 
 }
@@ -1003,6 +1026,8 @@ body {
 
     .bot-message {
         align-self: flex-start;
+        width: 95% !important;
+        max-width: 95% !important;
     }
 }
 
@@ -1383,14 +1408,14 @@ function displayClassSchedule() {
     // let html = '<div class="schedule-header">LỊCH HỌC TUẦN</div>';
     let html = '<div class="schedule-header">LỊCH HỌC TUẦN</div>';
     // Giữ nguyên wrapper cũ của bạn nếu cần, nhưng phải thêm table-responsive ở đây
-    html += '<div class="class-schedule-wrapper table-responsive">';
-    html += '<div class="class-schedule-wrapper">';
+    html += '<div class="table-responsive"><table class="class-schedule-table">';
+    // html += '<div class="class-schedule-wrapper">';
     
     const days = ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'Chủ nhật'];
     const sessions = ['Sáng', 'Chiều'];
     
     // Bảng
-    html += '<table class="class-schedule-table">';
+    // html += '<table class="class-schedule-table">';
     
     // Header - Dòng tiêu đề các thứ
     html += '<thead><tr><th style="width: 60px;">Buổi</th>';
@@ -1426,7 +1451,8 @@ function displayClassSchedule() {
     
     html += '</tbody>';
     html += '</table>';
-    html += '</div>';
+    // html += '</div>';
+    html += '</table></div>';
     
     // Hiển thị bảng trong chat box
     const msgDiv = document.createElement('div');
@@ -1500,8 +1526,9 @@ function displayExamSchedule() {
     let tableHTML = '<h3 style="text-align: center; margin-bottom: 10px;">Lịch thi cá nhân</h3>';
 
     // let tableHTML = '<div class="schedule-header">LỊCH THI CÁ NHÂN</div>';
-    tableHTML += '<div class="exam-schedule-wrapper">';
-    tableHTML += '<table class="exam-schedule-table">';
+    // tableHTML += '<div class="exam-schedule-wrapper">';
+    tableHTML += '<div class="table-responsive"><table class="exam-schedule-table">';
+    // tableHTML += '<table class="exam-schedule-table">';
     tableHTML += '<thead><tr>';
     tableHTML += '<th>STT</th>';
     tableHTML += '<th>Mã HP</th>';
@@ -1531,8 +1558,8 @@ function displayExamSchedule() {
     
     tableHTML += '</tbody>';
     tableHTML += '</table>';
-    tableHTML += '</div>';
-
+    // tableHTML += '</div>';
+    tableHTML += '</table></div>';
     
     
     // Hiển thị bảng trong chat box
@@ -1628,8 +1655,9 @@ function displayGradeTable() {
     
     // let tableHTML = '<div class="schedule-header">BẢNG ĐIỂM CÁ NHÂN</div>';
     let tableHTML = '<div class="schedule-header">BẢNG ĐIỂM CÁ NHÂN</div>';
-    tableHTML += '<div class="exam-schedule-wrapper">';
-    tableHTML += '<table class="exam-schedule-table">';
+    // tableHTML += '<div class="exam-schedule-wrapper">';
+    tableHTML += '<div class="table-responsive"><table class="exam-schedule-table">';
+    // tableHTML += '<table class="exam-schedule-table">';
     tableHTML += '<thead><tr>';
     tableHTML += '<th>STT</th>';
     tableHTML += '<th>Mã HP</th>';
@@ -1661,7 +1689,8 @@ function displayGradeTable() {
     
     tableHTML += '</tbody>';
     tableHTML += '</table>';
-    tableHTML += '</div>';
+    // tableHTML += '</div>';
+    tableHTML += '</table></div>';
     
     // Hiển thị bảng trong chat box
     const msgDiv = document.createElement('div');
