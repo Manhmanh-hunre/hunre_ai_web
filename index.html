@@ -93,8 +93,9 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            background: #f8f9fa;
+            gap: 8px;
+            background: #f5f5f7;
+            align-content: flex-start;
         }
         
         #chat-box::-webkit-scrollbar {
@@ -112,74 +113,154 @@
         
         .message { 
             padding: 12px 16px;
-            border-radius: 15px;
-            max-width: 80%;
+            border-radius: 18px;
             word-wrap: break-word;
+            overflow-wrap: break-word;   /* 🔥 cực quan trọng */
+            word-break: break-word;  
             white-space: pre-wrap;
-            line-height: 1.4;
+            line-height: 1.5;
             font-size: 14px;
-            
+            display: inline-flex;
+            flex-direction: column;
+            max-width: 80%;
+            width: fit-content;
+            animation: slideIn 0.2s ease-out;
+        }
 
-            display: flex;
-            align-items: center; 
-            min-height: 42px;
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message p,
+        .message li {
+        margin: 5px 0;
+        word-break: break-word;
+        }
+
+        .message ul {
+        padding-left: 20px;
         }
         
-        .user-message { 
+        .user-message {
             background: linear-gradient(135deg, #10cc2c 100%);
             color: white;
             align-self: flex-end;
-            border-bottom-right-radius: 5px;
+            border-radius: 18px;
             box-shadow: 0 2px 8px rgba(2, 90, 37, 0.3);
+            padding: 10px 16px;
+            max-width: 85%;
         }
         
+        /* --- ĐOẠN CSS TỐI ƯU CHO TIN NHẮN BOT (CHUẨN CHUYÊN NGHIỆP) --- */
         .bot-message { 
-            background: white;
+            background: #ffffff;
             color: #333;
             align-self: flex-start;
-            border: 1px solid #e0e0e0;
-            border-bottom-left-radius: 5px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-
-            white-space: pre-wrap; /* Giữ nguyên định dạng xuống dòng và dấu cách từ AI */
-            line-height: 1.0;      /* Dòng sát nhau hơn */
-            padding: 10px 15px;    /* Đảm bảo khoảng cách chữ với viền khung */
+            border: 2px solid #e8e8e8;
+            border-radius: 18px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+            white-space: normal !important; /* Cho phép tự động xuống dòng chuẩn HTML */
+            line-height: 1.6 !important;      /* Khoảng cách dòng giúp mắt dễ đọc */
+            padding: 12px 16px !important;
+            max-width: 85%;
+            height: auto;
+            overflow-wrap: break-word;
+            word-break: break-word;
         }
 
-        /* Điều chỉnh khoảng cách các đoạn văn, tiêu đề, list */
-        .bot-message p
-        { margin-top: 0 !important;/* Khoảng cách trên đoạn giảm xuống */}
+        .bot-message * 
+        {
+        max-width: 100%;
+        }
+
+        /* Sửa lỗi chồng chéo danh sách */
+        .bot-message ul,
+        .bot-message ol {
+            margin: 12px 0 !important;
+            padding-left: 24px !important;  /* Đẩy danh sách vào bên trong khung */
+            display: block !important;
+        }
+
+        .bot-message li {
+            display: list-item !important;  /* Giữ dấu chấm đầu dòng */
+            margin-bottom: 8px !important; /* Khoảng cách giữa các mục */
+            margin-left: 20px !important;      /* Không cạn thêm margin trái (padding-left của ul/ol đã xử lý) */
+            line-height: 1.6 !important;    /* Độ giãn dòng dễ đọc */
+            list-style-position: outside !important;
+            padding-left: 0 !important;
+        }
+
+        /* Không làm tới chấn mục này - đề cho marked.js tự xử lý */
+        .bot-message li p {
+            display: inline !important;     /* Cho phép text bên trong li từ nò dốc */
+            margin: 0 !important;
+            padding: 0 !important;
+            line-height: 1.6 !important;
+        }
+
+        .bot-message li span {
+            display: block !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .bot-message p {
+            display: block !important;      /* Đối với <p> không phải trong <li> */
+            margin: 8px 0 !important;
+            line-height: 1.6 !important;
+        }
+
         .bot-message h1,
         .bot-message h2,
         .bot-message h3,
         .bot-message h4,
         .bot-message h5,
-        .bot-message h6,
-        .bot-message ul,
-        .bot-message ol,
+        .bot-message h6 {
+            margin: 12px 0 8px 0 !important;
+            padding-left: 0 !important;
+            line-height: 1.5 !important;
+        }
+
         .bot-message blockquote {
-            margin-top: 2px;      /* Khoảng cách trên đoạn giảm xuống */
-            margin-bottom: 2px;   /* Khoảng cách dưới đoạn giảm xuống */
+            margin: 10px 0 !important;
+            padding-left: 12px !important;
+            border-left: 3px solid #ddd !important;
         }
 
-        .bot-message li {
-            margin-bottom: 1px;   /* Dòng trong list sát nhau */
+        /* Nâng cấp UX: Hover effect cho danh sách */
+        .bot-message li:hover {
+            background: rgba(16, 204, 44, 0.08) !important;
+            padding-left: 8px !important;
+            padding-right: 4px !important;
+            border-radius: 4px !important;
+            transition: all 0.2s ease !important;
         }
 
-                    /* Ép tất cả các thành phần bên trong danh sách phải sát nhau */
-.bot-message li, 
-.bot-message li p, 
-.bot-message li span {
-    margin: 0 !important;
-    padding: 0 !important;
-    display: inline !important; /* Đây là chìa khóa để nó khít như văn bản bình thường */
-}
+        /* Cải thiện scrollbar để thanh cuộn mượt mà */
+        #chat-box::-webkit-scrollbar {
+            width: 8px;
+        }
 
-.bot-message li {
-    display: list-item !important; /* Giữ lại dấu chấm đầu dòng */
-    margin-bottom: 2px !important; /* Khoảng cách giữa các dòng danh sách */
-    list-style-position: outside !important;
-}
+        #chat-box::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        #chat-box::-webkit-scrollbar-thumb {
+            background: #c0c0c0;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        #chat-box::-webkit-scrollbar-thumb:hover {
+            background: #a0a0a0;
+        }
         
         #input-area { 
             display: flex;
@@ -233,9 +314,6 @@
         #send-btn:active {
             transform: scale(0.95);
         }
-
-
-
         /* Layout bao quanh */
 #main-layout {
     display: flex;
@@ -346,8 +424,6 @@ body {
     overflow: hidden;
 }
 
-
-
 .typing-loader {
     font-style: italic;
     color: #888;
@@ -356,24 +432,8 @@ body {
     gap: 8px;
 }
 
-/* Hiệu ứng chấm tròn nhấp nháy cho sinh động */
-.typing-loader::after {
-    content: '...';
-    display: inline-block;
-    width: 12px;
-    animation: dots 1.5s steps(5, end) infinite;
-}
-
-@keyframes dots {
-    0%, 20% { content: ''; }
-    40% { content: '.'; }
-    60% { content: '..'; }
-    80%, 100% { content: '...'; }
-}
-
-
-
-    .fixed-branding {
+    .fixed-branding 
+    {
     position: fixed; 
     top: 7px; 
     left: 20px;
@@ -714,7 +774,8 @@ body {
     }
 
     .fixed-branding {
-        display: flex;
+    
+    display: flex;
     align-items: center;    /* Quan trọng: Căn logo và chữ thẳng hàng dọc */
     gap: 10px;              /* Khoảng cách giữa logo và chữ */
     
@@ -792,8 +853,6 @@ body {
         top: 0 !important;
     }
 
-    
-
     #sidebar.active {
         transform: translateX(0) !important;
     }
@@ -827,12 +886,25 @@ body {
 
     #chat-box {
         padding: 13px;
-        gap: 10.4px;
+        gap: 8px;
+        display: flex;
+        flex-direction: column;
     }
 
     .message {
-        max-width: 90%;
-        font-size: 17px !important;
+        max-width: 92%;
+        font-size: 15px !important;
+        display: inline-flex;
+        flex-direction: column;
+        width: fit-content;
+    }
+
+    .user-message {
+        align-self: flex-end;
+    }
+
+    .bot-message {
+        align-self: flex-start;
     }
 
     #input-area {
@@ -895,8 +967,19 @@ body {
     }
 
     .message {
-        max-width: 85%;
-        font-size: 12px;
+        max-width: 88%;
+        font-size: 14px;
+        display: inline-flex;
+        flex-direction: column;
+        width: fit-content;
+    }
+
+    .user-message {
+        align-self: flex-end;
+    }
+
+    .bot-message {
+        align-self: flex-start;
     }
 }
 
@@ -981,7 +1064,9 @@ body {
     const userInput = document.getElementById('user-input');
 
     // URL Webhook n8n của bạn (Đang dùng bản test)
-    const WEBHOOK_URL = 'https://hunre-ai-bot.loca.lt/webhook/chatbot';
+    // const WEBHOOK_URL = 'http://localhost:5678/webhook-test/chatbot';
+    const WEBHOOK_URL = 'http://localhost:5678/webhook/chatbot';
+
 
     // Hiện tin nhắn chào hỏi khi trang tải
     window.addEventListener('load', function() {
@@ -1034,7 +1119,7 @@ body {
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
-        // 3. Gửi request lên Webhook n8n
+        // Gửi request lên Webhook n8n
         const response = await fetch(WEBHOOK_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -1045,50 +1130,44 @@ body {
             })
         });
 
-        // const data = await response.json();
-        // const botReply = data.reply || data.output || data.response || data.text || JSON.stringify(data);
-
-        // // 4. Xóa tin nhắn "Đang suy nghĩ" và thay bằng câu trả lời thật
-        // const loadingElement = document.getElementById(tempMessageId);
-        // if (loadingElement) {
-        //     loadingElement.classList.remove('typing-loader'); // Bỏ hiệu ứng load
-        //     loadingElement.innerText = botReply; // Thay chữ
-        // }
-
-
         const data = await response.json();
-// Lấy nội dung phản hồi từ n8n
-const botReply = data.reply || data.output || data.response || data.text || JSON.stringify(data);
+        const botReply = data.reply || data.output || data.response || data.text || JSON.stringify(data);
 
-const loadingElement = document.getElementById(tempMessageId);
-if (loadingElement) {
-    loadingElement.classList.remove('typing-loader');
-    loadingElement.innerHTML = ''; // Xóa dòng "HUNRE AI đang suy nghĩ"
+        const loadingElement = document.getElementById(tempMessageId);
+        if (loadingElement) {
+            loadingElement.classList.remove('typing-loader');
+            loadingElement.innerHTML = '';
 
-    let i = 0;
-    const speed = 15; // Tốc độ gõ (ms), có thể chỉnh lên 30 nếu muốn chậm hơn
+            let i = 0;
+            const speed = 15;
 
+            // function typeWriter() {
+            //     if (i < botReply.length) {
+            //         let currentText = botReply.substring(0, i + 1); 
+            //         loadingElement.innerText = currentText;
+            //         loadingElement.innerHTML = marked.parse(currentText);
+            //         i++;
+            //         chatBox.scrollTop = chatBox.scrollHeight;
+            //         setTimeout(typeWriter, 15);
+            //     }
+            // }
 
-    /* Ép tất cả các thành phần bên trong danh sách phải sát nhau */
-    function typeWriter() {
-    if (i < botReply.length) {
-        let currentText = botReply.substring(0, i + 1); 
-        // SỬA DÒNG NÀY: Thêm replace để xóa bỏ các dòng trống thừa từ AI gửi về
-        let cleanText = currentText.replace(/\n\s*\n/g, '\n'); 
-        
-        loadingElement.innerHTML = marked.parse(cleanText);
-        i++;
-        chatBox.scrollTop = chatBox.scrollHeight;
-        setTimeout(typeWriter, 15);
-        }
-        }
-        }
+            function typeWriter() {
+            if (i < botReply.length) {
+            let currentText = botReply.substring(0, i + 1); 
+            loadingElement.innerText = currentText; //  không dùng marked ở đây
+            i++;
+            chatBox.scrollTop = chatBox.scrollHeight;
+            setTimeout(typeWriter, 15);
+            } else {
+            //  Khi xong mới render markdown
+            loadingElement.innerHTML = marked.parse(botReply);
+            }
+            }
+            typeWriter();
+            }
 
-    typeWriter();
-}
-
-
- catch (error) {
+    } catch (error) {
         console.error('Lỗi khi gọi API n8n:', error);
         const loadingElement = document.getElementById(tempMessageId);
         if (loadingElement) {
@@ -1101,34 +1180,29 @@ if (loadingElement) {
 
 
 
-        // 1. Khai báo nút
+// Khai báo nút và hàm Reset Chat
 const newChatBtn = document.getElementById('new-chat-btn');
 
-// 2. Định nghĩa hàm Reset Chat
+// Định nghĩa hàm Reset Chat
 function startNewChat() {
         
-        // A. Làm sạch màn hình chat
-        const chatBox = document.getElementById('chat-box');
-        chatBox.innerHTML = ''; // Xóa hết các thẻ div tin nhắn cũ
+    // Làm sạch màn hình chat
+    const chatBox = document.getElementById('chat-box');
+    chatBox.innerHTML = ''; // Xóa hết các thẻ div tin nhắn cũ
 
-        // B. Tạo Session ID mới (Quan trọng nhất để n8n không nhớ chuyện cũ)
-        // Chúng ta xóa ID cũ trong máy và tạo cái mới hoàn toàn
-        localStorage.removeItem('n8n_chat_session_id');
-        
-        // Cần khởi tạo lại biến sessionId toàn cục để các tin nhắn sau dùng ID mới này
-        window.sessionId = 'user_' + Math.random().toString(36).substring(2, 10);
-        localStorage.setItem('n8n_chat_session_id', window.sessionId);
-
-        // C. Hiển thị lời chào khởi đầu
-        appendMessage('Chào mừng bạn đến với HUNRE AI! Tôi đã sẵn sàng cho cuộc trò chuyện mới.', 'bot');
-        
-        console.log("Đã reset session mới: " + window.sessionId);
+    // Tạo Session ID mới
+    localStorage.removeItem('n8n_chat_session_id');
     
+    window.sessionId = 'user_' + Math.random().toString(36).substring(2, 10);
+    localStorage.setItem('n8n_chat_session_id', window.sessionId);
+
+    // Hiển thị lời chào khởi đầu
+    appendMessage('Chào mừng bạn đến với HUNRE AI! Tôi đã sẵn sàng cho cuộc trò chuyện mới.', 'bot');
+    
+    console.log("Đã reset session mới: " + window.sessionId);
 }
 
-
-
-// 3. Gán sự kiện click cho nút
+// Gán sự kiện click cho nút
 newChatBtn.addEventListener('click', startNewChat);
 
 // ===== HAMBURGER MENU - MOBILE =====
@@ -1577,9 +1651,6 @@ function showContent(type) {
         displayGradeTable();
     }
 }
-
-
-
 
 </script>
 </body>
