@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot n8n</title>
@@ -13,29 +11,17 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
-        body { 
+        body { /*thay đổi background và font chữ*/ 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-image: url('https://truongdaihocvietnam.com/wp-content/uploads/2023/06/HUNRE1.jpg');
+            background-image: #f0f0f0;
             display: flex;
             background-size: cover;
-            justify-content: center;
             background-position: 50% 50%;
-            align-items: center;
             height: 100vh;
-            padding: 20px;
+            padding: 0;
             overflow: hidden;
         }
-
-
-
         /* thay đổi giao diện điện thoại */
-
-
-        
-
-
-        
         .bot-message pre {
     background: #282c34;
     color: #abb2bf;
@@ -49,68 +35,114 @@
     padding: 2px 4px;
     border-radius: 4px;
 }
-
-        
         #chat-container { 
             width: 100%;
-            max-width: 1000px;
-            height: 90vh;
-            background: #fff;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: none;
+            height: 100%;
+            background: #ffffff;
+            border-radius: 0;
+            box-shadow: none;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            /* margin-right: 50px; */
         }
-        
-        #chat-header { 
-            background: linear-gradient(135deg,#7bd886 20%,#23d537 50% ,#10af22 100%);
-            color: white;
-            /* padding: 16px 20px; */
-            padding-top: 45px !important;  /* Giảm khoảng cách phía trên */
-            padding-bottom: 20px !important; /* Có thể tăng phía dưới để bù lại */
+        #chat-header {  /* sửa header của khung chat có chữ HUNRE AI */
+            background: #08c01a;
+            color: #ffffff;
+            padding: 16px 30px;
             text-align: center;
             font-weight: 600;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid #470b0b;
         }
-        
         #chat-header h1 {
-            font-size: 25px;
-            margin-bottom: 1px;
-            font-weight: 700;
+            font-size: 24px;
+            margin-bottom: 0;
+            font-weight: 600;
+            white-space: nowrap;
+            color: #ffffff;
         }
-        
         #chat-header p {
             font-size: 14px;
             opacity: 0.9;
             font-weight: 400;
+            margin: 0;
+            color: #ffffff;
         }
-        
-        #chat-box { 
+        .header-branding {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
             flex: 1;
-            padding: 20px;
+        }
+        .header-branding img {
+            display: none;
+        }
+        .header-branding-info h1 {
+            margin: 0;
+            font-size: 24px;
+            line-height: 1.2;
+            color: #202124;
+        }
+        .header-branding-info p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.2;
+            opacity: 0.7;
+            color: #5f6368;
+        } /*Sửa node website và hunre student*/
+        .header-links-top {
+            position: absolute;
+            display: flex;
+            gap: 12px;
+            margin-left: 0;
+            align-items: center;
+            right: 20px !important;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .header-links-top a {
+            position: relative !important;
+            color: #0aa028;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: 0.3s;
+            padding: 10px 5px;
+            border-radius: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+        .header-links-top a:hover {
+            background: #d2e3fc;
+            color: #0aa028;
+
+        } 
+        #chat-box { /* sửa tin nhắn output, input của bot */
+            flex: 1;
+            padding: 20px 15%;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            background: #f5f5f7;
+            gap: 16px;
+            background: #ffffff;
             align-content: flex-start;
         }
-        
         #chat-box::-webkit-scrollbar {
             width: 6px;
         }
-        
         #chat-box::-webkit-scrollbar-track {
             background: transparent;
         }
-        
         #chat-box::-webkit-scrollbar-thumb {
             background: #ddd;
             border-radius: 3px;
         }
-        
         .message { 
             padding: 12px 16px;
             border-radius: 18px;
@@ -126,7 +158,6 @@
             width: fit-content;
             animation: slideIn 0.2s ease-out;
         }
-
         @keyframes slideIn {
             from {
                 opacity: 0;
@@ -137,17 +168,14 @@
                 transform: translateY(0);
             }
         }
-
         .message p,
         .message li {
         margin: 5px 0;
         word-break: break-word;
         }
-
         .message ul {
         padding-left: 20px;
         }
-        
         .user-message {
             background: linear-gradient(135deg, #10cc2c 100%);
             color: white;
@@ -157,7 +185,6 @@
             padding: 10px 16px;
             max-width: 85%;
         }
-        
         /* --- ĐOẠN CSS TỐI ƯU CHO TIN NHẮN BOT (CHUẨN CHUYÊN NGHIỆP) --- */
         .bot-message { 
             background: #ffffff;
@@ -174,12 +201,10 @@
             overflow-wrap: break-word;
             word-break: break-word;
         }
-
         .bot-message * 
         {
         max-width: 100%;
         }
-
         /* Sửa lỗi chồng chéo danh sách */
         .bot-message ul,
         .bot-message ol {
@@ -187,7 +212,6 @@
             padding-left: 24px !important;  /* Đẩy danh sách vào bên trong khung */
             display: block !important;
         }
-
         .bot-message li {
             display: list-item !important;  /* Giữ dấu chấm đầu dòng */
             margin-bottom: 8px !important; /* Khoảng cách giữa các mục */
@@ -196,7 +220,6 @@
             list-style-position: outside !important;
             padding-left: 0 !important;
         }
-
         /* Không làm tới chấn mục này - đề cho marked.js tự xử lý */
         .bot-message li p {
             display: inline !important;     /* Cho phép text bên trong li từ nò dốc */
@@ -204,19 +227,16 @@
             padding: 0 !important;
             line-height: 1.6 !important;
         }
-
         .bot-message li span {
             display: block !important;
             margin: 0 !important;
             padding: 0 !important;
         }
-
         .bot-message p {
             display: block !important;      /* Đối với <p> không phải trong <li> */
             margin: 8px 0 !important;
             line-height: 1.6 !important;
         }
-
         .bot-message h1,
         .bot-message h2,
         .bot-message h3,
@@ -227,13 +247,11 @@
             padding-left: 0 !important;
             line-height: 1.5 !important;
         }
-
         .bot-message blockquote {
             margin: 10px 0 !important;
             padding-left: 12px !important;
             border-left: 3px solid #ddd !important;
         }
-
         /* Nâng cấp UX: Hover effect cho danh sách */
         .bot-message li:hover {
             background: rgba(16, 204, 44, 0.08) !important;
@@ -242,45 +260,40 @@
             border-radius: 4px !important;
             transition: all 0.2s ease !important;
         }
-
         /* Cải thiện scrollbar để thanh cuộn mượt mà */
         #chat-box::-webkit-scrollbar {
             width: 8px;
         }
-
         #chat-box::-webkit-scrollbar-track {
             background: transparent;
         }
-
         #chat-box::-webkit-scrollbar-thumb {
             background: #c0c0c0;
             border-radius: 4px;
             transition: background 0.3s ease;
         }
-
         #chat-box::-webkit-scrollbar-thumb:hover {
             background: #a0a0a0;
         }
-        
         #input-area { 
             display: flex;
+            /* align-items: flex-end; */
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             border-top: 1px solid #e0e0e0;
-            padding: 15px;
+            padding: 20px 14% 60px 14%; /*tăng chiều cao của cột nhập tin nhắn*/
             background: #fff;
         }
-        
         #user-input { 
             flex: 1;
-            padding: 12px 16px;
-            border: 1.5px solid #e0e0e0;
+            padding: 14px 16px;
+            border: 1.5px solid #e0e0e0; /*sửa chiều cao khung nhập thật*/
             border-radius: 25px;
             outline: none;
-            font-size: 14px;
-            transition: border-color 0.3s;
+            font-size: 16px;
+            transition: border-color 0.3s;   
+            width: 100%; 
         }
-        
         #user-input:focus {
             border-color: #169e2d;
         }
@@ -288,7 +301,6 @@
         #user-input::placeholder {
             color: #999;
         }
-        
         #send-btn { 
             background: linear-gradient(135deg, #03b03a 0%, #32d972 100%);
             color: white;
@@ -305,58 +317,55 @@
             box-shadow: 0 4px 12px rgba(77, 255, 127, 0.4);
             flex-shrink: 0;
         }
-        
         #send-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 6px 16px rgba(102, 126, 234, 0.5);
         }
-        
         #send-btn:active {
             transform: scale(0.95);
         }
         /* Layout bao quanh */
 #main-layout {
-    display: flex;
-    width: 100%;      /* Độ rộng tổng thể */
-    max-width: 1500px; 
-    height: 85vh;    /* Chiều cao cố định để không bị lướt trang */
-    gap: 20px;       /* Khoảng cách giữa Sidebar và Chat */
-    align-items: stretch;
-    max-width: 1200px;
-}
 
+    display: flex;
+    flex-direction: row; /* Flex row: sidebar + main content */
+    width: 100%;      /* Độ rộng tổng thể */
+    max-width: 100%; 
+    height: 100vh;    /* Chiều cao cố định để không bị lướt trang */
+    background: #ffffff; /* Nối 2 khối bằng cách dùng chung nền trắng */
+    border-radius: 0 !important; /* Bỏ bo góc để nối liền với sidebar */
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    overflow: hidden;
+}
 /* Sidebar bên trái (Mục tiêu của bạn) */
 #sidebar {
-    flex: 0 0 280px; /* Cố định độ rộng 280px */
-    background: rgba(255, 255, 255, 0.9); /* Màu trắng trong suốt nhẹ */
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
+    flex: 0 0 350px; /* Cố định độ rộng 280px - hẹp như Gemini */
+    background: rgba(240, 240, 240, 0.95); /* Chỉnh màu khung Đoạn chat mới*/
+    border-radius: 0 !important;
     display: flex;
     flex-direction: column;
     padding: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    overflow: hidden;
+    border-right: 1px solid #e0e0e0; /* Đường kẻ mờ chia cách 2 khối */
 }
-
 /* Nút chat mới */
 .new-chat-btn {
     background: #28a745; /* Màu xanh giống màu bạn đang dùng */
     color: white;
     border: none;
-    padding: 12px;
-    border-radius: 10px;
+    padding: 14px;
+    border-radius: 12px;
     cursor: pointer;
     font-weight: bold;
     margin-bottom: 20px;
     transition: 0.3s;
+    width: 100%;
+    font-size: 15px;
 }
 .new-chat-btn:hover { background: #218838; }
-
 /* Menu tiện ích */
 .menu-utilities {
     margin-bottom: 20px;
 }
-
 .menu-item {
     display: flex;
     align-items: center;
@@ -369,13 +378,11 @@
     font-weight: 500;
     transition: all 0.3s ease;
 }
-
 .menu-item:hover {
     background-color: #28a745;
     color: white;
     border-color: #28a745;
 }
-
 /* Danh sách lịch sử */
 .history-label {
     font-size: 12px;
@@ -384,12 +391,10 @@
     text-transform: uppercase;
     font-weight: bold;
 }
-
 #history-list {
     overflow-y: auto; /* Cuộn nếu quá 10 item */
     flex: 1;
 }
-
 .history-item {
     padding: 10px;
     margin-bottom: 5px;
@@ -402,19 +407,19 @@
     text-overflow: ellipsis; /* Cắt chữ nếu quá dài */
     transition: 0.2s;
 }
-
 .history-item:hover {
     background: rgba(40, 167, 69, 0.1); /* Hiệu ứng hover xanh nhạt */
     color: #28a745;
 }
-
 /* Điều chỉnh lại khung chat cũ cho khớp layout mới */
 #chat-container {
     flex: 1; /* Tự động rộng ra chiếm phần còn lại */
+    border-radius: 0 !important; /* Bỏ bo góc để nối liền với sidebar */
     margin-right: 0 !important; /* Xóa margin cũ nếu có */
     height: 100% !important;   /* Cao bằng main-layout */
+    width: 100%;
+    overflow: hidden;
 }
-
 /* Đảm bảo body căn giữa cái main-layout */
 body {
     display: flex;
@@ -423,7 +428,6 @@ body {
     height: 100vh;
     overflow: hidden;
 }
-
 .typing-loader {
     font-style: italic;
     color: #888;
@@ -431,43 +435,39 @@ body {
     align-items: center;
     gap: 8px;
 }
-
     .fixed-branding 
     {
-    position: fixed; 
-    top: 7px; 
-    left: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    z-index: 9998; 
-    pointer-events: none; 
+    display: flex;          /* Thay đổi từ none thành flex để hiện lại */
+    align-items: center;    /* Căn giữa logo và chữ theo chiều dọc */
+    gap: 10px;              /* Khoảng cách giữa logo và tên trường */
+    position: absolute;     /* Đặt vị trí tuyệt đối trong header */
+    left: 360px;            /* Cách lề trái 20px */
+    top: 2%;               /* Đưa xuống giữa header */
+    transform: translateY(-50%); /* Căn chỉnh chính xác tâm theo chiều dọc */
+    z-index: 10;
+    color: #ffffff;
 }
     .fixed-branding img {
-    flex-shrink: 0;        /* Giữ nguyên kích thước logo, không cho nó bị bóp méo */
+    height: 25px;           /* Chỉnh độ cao logo phù hợp với header */
+    width: auto;
+    flex-shrink: 0;
 }
-
 .branding-text {
-    white-space: nowrap;    /* Lệnh này quan trọng nhất: Cấm xuống dòng */
-    font-size: 13px;        /* Bạn có thể giảm nhỏ size này nếu tên trường dài quá bị tràn màn hình */
+    white-space: nowrap;
+    font-size: 13px;
+    color: #a5ffc9;
 }
-
-
-
 .branding-logo {
     height: 45px;
     width: auto;
 }
-
 .branding-text {
-    color: rgb(2, 124, 28);
-    font-size: 18px;
+    color: #d6fdd4;
+    font-size: 14px;
     font-weight: bold;
     text-transform: uppercase;
-    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8); 
     white-space: nowrap;
 }
-
 /* ===== HAMBURGER MENU BUTTON ===== */
 .hamburger-btn {
     display: none !important;
@@ -488,7 +488,6 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     pointer-events: auto;
 }
-
 .hamburger-btn span {
     display: block;
     width: 16px !important;
@@ -497,11 +496,9 @@ body {
     border-radius: 2px;
     transition: all 0.3s ease;
 }
-
 .hamburger-btn:hover {
     background: #f0f0f0;
 }
-
 /* Sidebar overlay trên mobile */
 .sidebar-overlay {
     display: none;
@@ -513,11 +510,9 @@ body {
     background: rgba(0, 0, 0, 0.5);
     z-index: 9998;
 }
-
 .sidebar-overlay.active {
     display: block;
 }
-
 /* CSS cho bảng lịch thi */
 .exam-schedule-table {
     width: 100%;
@@ -529,74 +524,61 @@ body {
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
-
 .exam-schedule-table thead {
     background: linear-gradient(135deg, #10af22 0%, #28a745 100%);
     color: white;
     font-weight: 700;
 }
-
 .exam-schedule-table th {
     padding: 12px 8px;
     text-align: left;
     border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
-
 .exam-schedule-table td {
     padding: 10px 8px;
     border-bottom: 1px solid #e0e0e0;
     color: #333;
 }
-
 .exam-schedule-table tbody tr:hover {
     background-color: rgba(40, 167, 69, 0.05);
 }
-
 .exam-schedule-table tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
-
 .exam-schedule-wrapper {
     max-height: 400px;
     overflow-y: auto;
     border-radius: 8px;
     margin: 15px 0;
 }
-
 .exam-schedule-wrapper::-webkit-scrollbar {
     width: 6px;
 }
-
 .exam-schedule-wrapper::-webkit-scrollbar-track {
     background: transparent;
 }
-
 .exam-schedule-wrapper::-webkit-scrollbar-thumb {
     background: #ddd;
     border-radius: 3px;
 }
-
 .schedule-header {
     font-weight: bold;
     color: #10af22;
     margin-bottom: 10px;
     font-size: 14px;
 }
-
 /* CSS cho Lịch học tuần */
 .class-schedule-wrapper {
     overflow-x: auto;
     border-radius: 8px;
     margin: 15px 0;
 }
-
 .class-schedule-table {
     width: 100%;
     border-collapse: collapse;
     background: white;
     font-size: 12px;
 }
-
 .class-schedule-table thead {
     background: linear-gradient(135deg, #10af22 0%, #28a745 100%);
     color: white;
@@ -604,13 +586,11 @@ body {
     position: sticky;
     top: 0;
 }
-
 .class-schedule-table th {
     padding: 10px 6px;
     text-align: center;
     border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
-
 .class-schedule-table td {
     padding: 8px 6px;
     border: 1px solid #e0e0e0;
@@ -618,17 +598,14 @@ body {
     vertical-align: top;
     max-width: 120px;
 }
-
 .class-schedule-table tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
-
 .time-slot {
     font-weight: bold;
     background: #f0f0f0;
     min-width: 50px;
 }
-
 .class-item {
     background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f4 100%);
     border-left: 3px solid #28a745;
@@ -638,25 +615,21 @@ body {
     font-size: 11px;
     line-height: 1.3;
 }
-
 .class-name {
     font-weight: 600;
     color: #1b5e20;
     display: block;
     margin-bottom: 2px;
 }
-
 .class-time {
     color: #2e7d32;
     font-size: 10px;
 }
-
 .class-room {
     color: #555;
     font-size: 10px;
     margin-top: 2px;
 }
-
 /* CSS cho Modal Dialog */
 .modal-overlay {
     display: none;
@@ -670,11 +643,9 @@ body {
     justify-content: center;
     align-items: center;
 }
-
 .modal-overlay.active {
     display: flex;
 }
-
 .modal-content {
     background: white;
     border-radius: 12px;
@@ -684,7 +655,6 @@ body {
     width: 90%;
     animation: slideUp 0.3s ease-out;
 }
-
 @keyframes slideUp {
     from {
         transform: translateY(20px);
@@ -695,7 +665,6 @@ body {
         opacity: 1;
     }
 }
-
 .modal-header {
     font-size: 18px;
     font-weight: bold;
@@ -704,33 +673,28 @@ body {
     border-bottom: 2px solid #28a745;
     padding-bottom: 10px;
 }
-
 .modal-body {
     font-size: 14px;
     color: #333;
     line-height: 1.8;
 }
-
 .modal-item {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 12px;
 }
-
 .modal-icon {
     font-size: 18px;
     color: #28a745;
     min-width: 24px;
     text-align: center;
 }
-
 .modal-label {
     font-weight: 600;
     color: #1b5e20;
     min-width: 70px;
 }
-
 .modal-close {
     float: right;
     font-size: 24px;
@@ -748,47 +712,99 @@ body {
     border-radius: 50%;
     transition: 0.3s;
 }
-
 .modal-close:hover {
     background: #f0f0f0;
     color: #333;
 }
-
 .class-item-clickable {
     cursor: pointer;
     transition: all 0.2s;
 }
-
 .class-item-clickable:hover {
     background: linear-gradient(135deg, #d4edda 0%, #e8f5e9 100%) !important;
     transform: scale(1.05);
 }
+/* thêm header*/
+/* Đoạn này chỉ dành cho PC */
+#pc-functional-header {
+    display: none;
+}
+.header-links {
+    display: flex;
+    gap: 25px;
+}
+.header-links a,
+.header-links a:visited {
+    text-decoration: none;
+    color: #28a745 !important;
+    font-size: 12px !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    font-weight: 600;
+    transition: 0.3s;
+}
 
-/* ===== RESPONSIVE MOBILE ===== */
+.header-links a:hover {
+    color: #1b5e20 !important;
+    text-decoration: underline;
+}
+body {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.header-icons { 
+    display: flex; 
+    gap: 20px; 
+    font-size: 20px; 
+}
+/* Đây là hộp chứa cả Sidebar và Khung chat */
+#content-wrapper { 
+    display: flex; 
+    flex: 1; 
+    overflow: hidden;
+    flex-direction: column;
+}
+.footer-disclaimer {
+    position: fixed;        /* Cố định vị trí so với màn hình */
+    bottom: 40px;           /* Cách đáy 10px */
+    left: 60%;              /* Đưa sang giữa theo chiều ngang */
+    transform: translateX(-50%); /* Căn chỉnh chính xác tâm chữ vào giữa */
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: #666;            /* Màu xám để không bị chói */
+    z-index: 9999;          /* Đảm bảo nó luôn hiện trên các lớp khác */
+    pointer-events: none;   /* Để không cản trở việc click vào các nút khác */
+}
+/* LỆNH KHÓA: Khi màn hình nhỏ hơn 768px (Điện thoại) */
 @media (max-width: 768px) {
-    
-    
-    body {
+    #pc-functional-header { 
+        display: none !important; /* Biến mất hoàn toàn trên điện thoại */
+    }
+    #content-wrapper { 
+        display: block !important; /* Trả về dạng khối bình thường để không hỏng giao diện cũ */
+    }
+    #sidebar {
+        width: 100% !important; /* Đảm bảo sidebar vẫn full màn hình trên mobile như cũ */
+    }
+}
+/* ===== RESPONSIVE MOBILE ===== */
+@media (max-width: 768px) {   
+        body {
         padding: 0;
         height: 100vh;
     }
-
-    .fixed-branding {
-    
+    .fixed-branding {  
     display: flex;
     align-items: center;    /* Quan trọng: Căn logo và chữ thẳng hàng dọc */
     gap: 10px;              /* Khoảng cách giữa logo và chữ */
-    
     /* Để di chuyển cả cụm này */
     position: absolute;     
     top: 10px;              /* Chỉnh khoảng cách so với mép trên */
     left: 15px;
     }
-
     .branding-logo {
         height: 40px;
     }
-
     .branding-text {
         font-size: 14px;
         white-space: normal;
@@ -798,7 +814,6 @@ body {
         line-height: 1.2;
         word-wrap: break-word;
     }
-
     .hamburger-btn {
     display: flex !important;
     position: absolute ;
@@ -818,18 +833,17 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     pointer-events: auto;
     }
-
     .hamburger-btn span {
         width: 18px;
         height: 2.5px;
     }
-
     #main-layout {
-        flex-direction: column;
+        width:100%;
+        max-width: 100% !important; /* Chiếm hết chiều ngang */
         height: 100vh;
-        gap: 0;
+        border-radius: 0 !important; /* Bỏ bo góc
+        margin: 0 !important; /* Bỏ margin để không bị thụt vào */
     }
-
     #sidebar {
     flex: 0 0 280px; /* Cố định độ rộng 280px */
     background: rgba(255, 255, 255, 0.9); /* Màu trắng trong suốt nhẹ */
@@ -852,11 +866,9 @@ body {
         left: 0 !important;
         top: 0 !important;
     }
-
     #sidebar.active {
         transform: translateX(0) !important;
     }
-
     #chat-container {
         flex: 1;
         max-width: 100%;
@@ -866,63 +878,57 @@ body {
         margin: 0;
         padding: 0;
     }
-
     #chat-header {
         padding: 120px 0 12px 0;
         text-align: center;
         position: relative;
     }
-
     #chat-header h1 {
         font-size: 25px !important;
         margin-bottom: 4px;
     }
-
     #chat-header p {
         font-size: 12px;
         padding: 0 12px;
         line-height: 1.4;
     }
-
     #chat-box {
-        padding: 13px;
-        gap: 8px;
+        flex: 1;
+        padding: 15px 10px !important;
+        gap: 12px;
         display: flex;
+        background: #ffffff;
         flex-direction: column;
+        overflow-y: auto;
     }
-
     .message {
-        max-width: 92%;
+        max-width: 65%;
         font-size: 15px !important;
         display: inline-flex;
         flex-direction: column;
+        margin-bottom: 8px;
         width: fit-content;
     }
-
     .user-message {
         align-self: flex-end;
     }
-
     .bot-message {
         /* align-self: flex-start; */
     max-width: 95% !important;
     width: 95% !important; 
     }
-
     #input-area {
-        padding: 10.8px 7.2px;
+        padding: 10px 10px !important;
         gap: 10.8px;
         margin-bottom: 0;
         border-left: none;
         border-right: none;
     }
-
     #user-input {
         padding: 13.5px 16.2px;
         font-size: 17.1px;
         border-radius: 30px;
     }
-
     #send-btn {
         width: 48.6px;
         height: 48.6px;
@@ -936,15 +942,13 @@ body {
     text-align: center;
     padding: 5px 10px;
     width: 100%;
-    border-bottom: 1px solid #eee;
-    
+    border-bottom: 1px solid #eee; 
     /* CÁC DÒNG QUAN TRỌNG ĐỂ THÀNH 1 DÒNG */
     white-space: nowrap;    /* Không cho phép xuống dòng */
     overflow: hidden;       /* Ẩn phần thừa nếu màn hình quá nhỏ */
     display: block;         /* Đảm bảo nó chiếm hết chiều ngang */
    }
-
-    /* Bắt đầu code sửa bảng - CHỈ CHẠY TRÊN MOBILE */
+  /* Bắt đầu code sửa bảng - CHỈ CHẠY TRÊN MOBILE */
     .table-responsive {
         width: 100%;
         overflow-x: auto; /* Cho phép vuốt ngang */
@@ -953,7 +957,6 @@ body {
         border: 1px solid #eee;
         border-radius: 8px;
     }
-
     .table-responsive table {
         /* min-width: 600px !important; //Ép bảng rộng ra để không bị dồn chữ
         width: auto;  */
@@ -962,9 +965,7 @@ body {
         display: table !important;
         border-collapse: collapse !important;
         table-layout: auto !important; /* Tự động giãn ô theo chữ */
-
     }
-
     .table-responsive th, 
     .table-responsive td {
         /* white-space: nowrap !important; //Chữ nằm trên 1 dòng, không bị đè lên nhau 
@@ -977,41 +978,32 @@ body {
         font-size: 12px !important;
         min-width: 100px; /* Đảm bảo ô đủ to để chứa nội dung */
         vertical-align: middle;
-
     }
-
     .class-item {
         width: 100% !important;
         box-sizing: border-box;
         margin: 2px 0;
         padding: 4px !important;
     }
-
 }
-
 @media (max-width: 480px) {
     .branding-logo {
         height: 30px;
     }
-
     .branding-text {
         font-size: 11px;
         max-width: 150px;
     }
-
     #sidebar {
         width: 75vw;
         left: -75vw;
     }
-
     #chat-header h1 {
         font-size: 16px;
     }
-
     #chat-header p {
         font-size: 11px;
     }
-
     .message {
         max-width: 88%;
         font-size: 14px;
@@ -1019,43 +1011,42 @@ body {
         flex-direction: column;
         width: fit-content;
     }
-
-    .user-message {
+    .user-message { /* sửa tin nhắn User*/
+        background: linear-gradient(135deg, #10cc2c 100%);
+        color: white;
         align-self: flex-end;
+        padding: 10px 16px;
+        border-radius: 18px 18px 0 18px; /* Bo góc kiểu hiện đại */
     }
-
     .bot-message {
         align-self: flex-start;
         width: 95% !important;
         max-width: 95% !important;
+        background: #ffffff;
+        border: 1px solid #e0e0e0;
+        padding: 10px 16px !important;
+        border-radius: 18px 18px 18px 0;
     }
-}
 
+}
     </style>
 </head>
 <body>
-
-
 <div class="fixed-branding">
     <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/HUNRE_Logo.png" alt="Logo" class="branding-logo">
     <span class="branding-text" style="white-space: nowrap;" >TRƯỜNG ĐẠI HỌC TÀI NGUYÊN VÀ MÔI TRƯỜNG HÀ NỘI</span>
 </div>
-
-
 <div id="main-layout">
-    
     <div id="sidebar">
-        <button class="new-chat-btn"   id="new-chat-btn"     >+ Đoạn chat mới</button>
-        
+        <button class="new-chat-btn" id="new-chat-btn">+ Đoạn chat mới</button>
         <!-- Menu tiện ích -->
         <div class="menu-utilities">
             <div class="menu-item" onclick="showContent('TKB')">Thời khóa biểu</div>
             <div class="menu-item" onclick="showContent('LICH_THI')">Lịch thi</div>
             <div class="menu-item" onclick="showContent('DIEM')">Tra cứu điểm thi</div>
+            <div class="menu-item" onclick="showContent('INFO')">Thông tín khác</div>
         </div>
-        
         <hr>
-        
         <div class="history-label">Gần đây</div>
         <div id="history-list">
             <div class="history-item">Lịch sử trò chuyện 1</div>
@@ -1063,36 +1054,33 @@ body {
             <div class="history-item">Lịch sử trò chuyện 3</div>
             <div class="history-item">Lịch sử trò chuyện 4</div>
             <div class="history-item">Lịch sử trò chuyện 5</div>
-            <div class="history-item">Lịch sử trò chuyện 6</div>
-            <div class="history-item">Lịch sử trò chuyện 7</div>
-            <div class="history-item">Lịch sử trò chuyện 8</div>
-            <div class="history-item">Lịch sử trò chuyện 9</div>
-            <div class="history-item">Lịch sử trò chuyện 10</div>
         </div>
     </div>
-
-
-
-<div id="chat-container">
+    <div id="content-wrapper">
     <div id="chat-header">
-        <button class="hamburger-btn" id="hamburger-btn">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <h1> HUNRE AI</h1>
-        <p>Cố vấn học tập ảo của trường Đại học Tài nguyên và Môi trường Hà Nội</p>
+        <div class="header-branding">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/HUNRE_Logo.png" alt="Logo HUNRE" style="height: 40px; width: auto;">
+            <div class="header-branding-info">
+                <h1>HUNRE AI</h1>
+                <p>Trợ lý cố vấn học tập ảo của Trường Đại học Tài nguyên và Môi trường Hà Nội</p>
+            </div>
+        </div>
+        <div class="header-links-top">
+            <a href="https://hunre.edu.vn" target="_blank" title="Website trường">Website hunre</a>
+            <a href="https://student.hunre.edu.vn/congthongtin/index.aspx" target="_blank" title="Hunre Student">Hunre Student</a>
+        </div>
     </div>
     <div id="chat-box">
     </div>
     <div id="input-area">
-        <input type="text" id="user-input" placeholder="Nhập tin nhắn của bạn..." onkeypress="handleKeyPress(event)">
+        <!-- <input type="text" id="user-input" placeholder="Nhập tin nhắn của bạn..." onkeypress="handleKeyPress(event)"> -->
+         <div id="user-input" contenteditable="true" role="textbox" placeholder="Nhập tin nhắn của bạn..." onkeypress="handleKeyPress(event)"></div>
         <button id="send-btn" onclick="sendMessage()">➤</button>
     </div>
+        <div class="footer-disclaimer">HUNRE AI có thể mắc sai sót. Hãy kiểm tra các thông tin quan trọng.</div>
 </div>
-
+</div>
 <div class="sidebar-overlay" id="sidebar-overlay"></div>
-
 <script>
     // 1. HÀM TẠO VÀ LẤY SESSION ID
     // Hàm này kiểm tra xem người dùng đã có ID chưa, nếu chưa thì tạo mới và lưu vào localStorage
@@ -1105,22 +1093,22 @@ body {
         }
         return sessionId;
     }
-
-    // const sessionId = getOrCreateSessionId();
     window.sessionId = getOrCreateSessionId();
     const chatBox = document.getElementById('chat-box');
     const userInput = document.getElementById('user-input');
-
-    // URL Webhook n8n của bạn (Đang dùng bản test)
+    userInput.addEventListener('paste', function(e) {
+    e.preventDefault(); // Chặn dán kèm định dạng HTML (gây lỗi gõ chữ)
+    const text = (e.originalEvent || e).clipboardData.getData('text/plain'); // Chỉ lấy chữ thuần
+    document.execCommand('insertText', false, text); // Chèn chữ vào khung
+    });
+    const WEBHOOK_URL = 'https://outtakes-tidings-unfixable.ngrok-free.dev/webhook-test/chatbot';
+    // const WEBHOOK_URL = 'https://hemlock-astute-saturday.ngrok-free.dev/webhook/chatbot';
+    // const WEBHOOK_URL = 'http://localhost:5678/webhook/chatbot';
     // const WEBHOOK_URL = 'http://localhost:5678/webhook-test/chatbot';
-    const WEBHOOK_URL = 'http://localhost:5678/webhook/chatbot';
-
-
     // Hiện tin nhắn chào hỏi khi trang tải
     window.addEventListener('load', function() {
         appendMessage('Chào mừng bạn đến với HUNRE AI! Tôi có thể giúp gì cho bạn hôm nay?', 'bot');
     });
-
     // 2. HÀM HIỂN THỊ TIN NHẮN LÊN MÀN HÌNH
     function appendMessage(text, sender) {
         const msgDiv = document.createElement('div');
@@ -1135,28 +1123,19 @@ body {
         chatBox.appendChild(msgDiv);
         chatBox.scrollTop = chatBox.scrollHeight; // Tự động cuộn xuống cuối
     }
-
     // Xử lý khi nhấn Enter
     function handleKeyPress(event) {
         if (event.key === 'Enter') {
             sendMessage();
         }
     }
-
-
-
-
-
-
-
     async function sendMessage() {
-    const text = userInput.value.trim();
+    const text = userInput.textContent.trim();
     if (!text) return;
-
     // 1. Hiện tin nhắn của người dùng
     appendMessage(text, 'user');
-    userInput.value = '';
-
+    userInput.textContent = '';
+    userInput.innerHTML = '';
     // 2. Hiện tin nhắn "Đang suy nghĩ..." tạm thời
     const tempMessageId = 'loading-' + Date.now(); // Tạo một ID duy nhất
     const loadingDiv = document.createElement('div');
@@ -1165,7 +1144,6 @@ body {
     loadingDiv.innerText = 'HUNRE AI đang suy nghĩ';
     chatBox.appendChild(loadingDiv);
     chatBox.scrollTop = chatBox.scrollHeight;
-
     try {
         // Gửi request lên Webhook n8n
         const response = await fetch(WEBHOOK_URL, {
@@ -1177,44 +1155,39 @@ body {
                 executionMode: "test"
             })
         });
-
         const data = await response.json();
-        const botReply = data.reply || data.output || data.response || data.text || JSON.stringify(data);
+        let botReply = data.reply || data.output || data.response || data.text || JSON.stringify(data);
 
         const loadingElement = document.getElementById(tempMessageId);
         if (loadingElement) {
             loadingElement.classList.remove('typing-loader');
             loadingElement.innerHTML = '';
-
             let i = 0;
             const speed = 15;
-
-            // function typeWriter() {
-            //     if (i < botReply.length) {
-            //         let currentText = botReply.substring(0, i + 1); 
-            //         loadingElement.innerText = currentText;
-            //         loadingElement.innerHTML = marked.parse(currentText);
-            //         i++;
-            //         chatBox.scrollTop = chatBox.scrollHeight;
-            //         setTimeout(typeWriter, 15);
-            //     }
-            // }
-
+            const isJson = botReply.trim().startsWith('{') || botReply.trim().startsWith('[');
             function typeWriter() {
             if (i < botReply.length) {
             let currentText = botReply.substring(0, i + 1); 
-            loadingElement.innerText = currentText; //  không dùng marked ở đây
-            i++;
-            chatBox.scrollTop = chatBox.scrollHeight;
-            setTimeout(typeWriter, 15);
-            } else {
-            //  Khi xong mới render markdown
-            loadingElement.innerHTML = marked.parse(botReply);
+            if (isJson) {
+                        // Nếu là JSON, bọc vào Markdown Code Block và parse ngay lập tức
+                        loadingElement.innerHTML = marked.parse('```json\n' + currentText + '\n```');
+                    } else {
+                        // Nếu là văn bản thường, parse Markdown bình thường
+                        loadingElement.innerHTML = marked.parse(currentText);
+                    }
+                    
+                    i++;
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                    setTimeout(typeWriter, speed);
+        // // Render Markdown ngay lập tức khi đang gõ
+        //     loadingElement.innerHTML = marked.parse(currentText);
+        //     i++;
+        //     chatBox.scrollTop = chatBox.scrollHeight;
+        //     setTimeout(typeWriter, 15);
             }
             }
             typeWriter();
             }
-
     } catch (error) {
         console.error('Lỗi khi gọi API n8n:', error);
         const loadingElement = document.getElementById(tempMessageId);
@@ -1224,53 +1197,40 @@ body {
         }
     }
 }
-
-
-
-
 // Khai báo nút và hàm Reset Chat
 const newChatBtn = document.getElementById('new-chat-btn');
-
 // Định nghĩa hàm Reset Chat
-function startNewChat() {
-        
+function startNewChat() { 
     // Làm sạch màn hình chat
     const chatBox = document.getElementById('chat-box');
     chatBox.innerHTML = ''; // Xóa hết các thẻ div tin nhắn cũ
-
     // Tạo Session ID mới
     localStorage.removeItem('n8n_chat_session_id');
-    
     window.sessionId = 'user_' + Math.random().toString(36).substring(2, 10);
     localStorage.setItem('n8n_chat_session_id', window.sessionId);
-
     // Hiển thị lời chào khởi đầu
     appendMessage('Chào mừng bạn đến với HUNRE AI! Tôi đã sẵn sàng cho cuộc trò chuyện mới.', 'bot');
-    
     console.log("Đã reset session mới: " + window.sessionId);
 }
-
 // Gán sự kiện click cho nút
 newChatBtn.addEventListener('click', startNewChat);
-
 // ===== HAMBURGER MENU - MOBILE =====
 const hamburgerBtn = document.getElementById('hamburger-btn');
 const sidebar = document.getElementById('sidebar');
 const sidebarOverlay = document.getElementById('sidebar-overlay');
-
-// Mở sidebar
-hamburgerBtn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    sidebar.classList.add('active');
-    sidebarOverlay.classList.add('active');
-});
-
+// Mở sidebar - Chỉ nếu hamburger button tồn tại (cho mobile)
+if (hamburgerBtn) {
+    hamburgerBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        sidebar.classList.add('active');
+        sidebarOverlay.classList.add('active');
+    });
+}
 // Đóng sidebar khi click vào overlay
 sidebarOverlay.addEventListener('click', function() {
     sidebar.classList.remove('active');
     sidebarOverlay.classList.remove('active');
 });
-
 // Đóng sidebar khi click vào menu items
 const menuItems = document.querySelectorAll('.menu-item, .history-item');
 menuItems.forEach(item => {
@@ -1279,14 +1239,12 @@ menuItems.forEach(item => {
         sidebarOverlay.classList.remove('active');
     });
 });
-
 // Đóng sidebar khi bấm nút "Đoạn chat mới"
 const newChatBtnMobile = document.getElementById('new-chat-btn');
 newChatBtnMobile.addEventListener('click', function() {
     sidebar.classList.remove('active');
     sidebarOverlay.classList.remove('active');
 });
-
 // ============ LỊCH THI ============
 // Dữ liệu lịch thi
 const examScheduleData = [
@@ -1357,7 +1315,6 @@ const examScheduleData = [
         baoDanh: 458
     }
 ];
-
 // ============ LỊCH HỌC TUẦN ============
 // Dữ liệu lịch học theo tuần (Sáng/Chiều)
 const classScheduleData = {
@@ -1402,7 +1359,6 @@ const classScheduleData = {
         'Chiều': []
     }
 };
-
 // Hàm hiển thị lịch học
 function displayClassSchedule() {
     // let html = '<div class="schedule-header">LỊCH HỌC TUẦN</div>';
@@ -1410,31 +1366,22 @@ function displayClassSchedule() {
     // Giữ nguyên wrapper cũ của bạn nếu cần, nhưng phải thêm table-responsive ở đây
     html += '<div class="table-responsive"><table class="class-schedule-table">';
     // html += '<div class="class-schedule-wrapper">';
-    
     const days = ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'Chủ nhật'];
     const sessions = ['Sáng', 'Chiều'];
-    
-    // Bảng
-    // html += '<table class="class-schedule-table">';
-    
     // Header - Dòng tiêu đề các thứ
     html += '<thead><tr><th style="width: 60px;">Buổi</th>';
     days.forEach(day => {
         html += `<th>${day}</th>`;
     });
     html += '</tr></thead>';
-    
     // Body - Dòng Sáng và Chiều
     html += '<tbody>';
     sessions.forEach(session => {
         html += '<tr>';
         html += `<td class="time-slot" style="font-weight: bold; background: ${session === 'Sáng' ? '#e8f5e9' : '#fff3e0'};">${session}</td>`;
-        
         days.forEach(day => {
             html += '<td>';
-            
             const daySchedule = classScheduleData[day][session] || [];
-            
             daySchedule.forEach((classItem, index) => {
                 const classId = `cls_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
                 // Lưu trữ thông tin lớp học trong window object
@@ -1443,17 +1390,14 @@ function displayClassSchedule() {
                     <span class="class-name">${classItem.name}</span>
                 </div>`;
             });
-            
             html += '</td>';
         });
         html += '</tr>';
     });
-    
     html += '</tbody>';
     html += '</table>';
     // html += '</div>';
     html += '</table></div>';
-    
     // Hiển thị bảng trong chat box
     const msgDiv = document.createElement('div');
     msgDiv.classList.add('message', 'bot-message');
@@ -1461,12 +1405,10 @@ function displayClassSchedule() {
     chatBox.appendChild(msgDiv);
     chatBox.scrollTop = chatBox.scrollHeight;
 }
-
 // Hàm hiển thị modal chi tiết
 function showClassDetailModal(classId) {
     const classItem = window[classId];
     if (!classItem) return;
-    
     let modalHTML = `<div class="modal-header">${classItem.name}</div>`;
     modalHTML += '<div class="modal-body">';
     modalHTML += `<div class="modal-item">
@@ -1482,7 +1424,6 @@ function showClassDetailModal(classId) {
         <span><span class="modal-label">GV:</span> ${classItem.teacher}</span>
     </div>`;
     modalHTML += '</div>';
-    
     // Tìm hoặc tạo modal trên document
     let modal = document.getElementById('class-modal');
     if (!modal) {
@@ -1495,11 +1436,9 @@ function showClassDetailModal(classId) {
         </div>`;
         document.body.appendChild(modal);
     }
-    
     modal.querySelector('#modal-body-content').innerHTML = modalHTML;
     modal.classList.add('active');
 }
-
 // Hàm đóng modal
 function closeClassModal() {
     const modal = document.getElementById('class-modal');
@@ -1507,7 +1446,6 @@ function closeClassModal() {
         modal.classList.remove('active');
     }
 }
-
 // Đóng modal khi click ngoài
 document.addEventListener('click', function(event) {
     const modal = document.getElementById('class-modal');
@@ -1515,20 +1453,14 @@ document.addEventListener('click', function(event) {
         modal.classList.remove('active');
     }
 });
-
 // Hàm hiển thị chi tiết môn học
 function showClassDetail(classItem) {
     // Hàm cũ - không cần dùng nữa
 }
-
 // Hàm hiển thị lịch thi
 function displayExamSchedule() {
     let tableHTML = '<h3 style="text-align: center; margin-bottom: 10px;">Lịch thi cá nhân</h3>';
-
-    // let tableHTML = '<div class="schedule-header">LỊCH THI CÁ NHÂN</div>';
-    // tableHTML += '<div class="exam-schedule-wrapper">';
     tableHTML += '<div class="table-responsive"><table class="exam-schedule-table">';
-    // tableHTML += '<table class="exam-schedule-table">';
     tableHTML += '<thead><tr>';
     tableHTML += '<th>STT</th>';
     tableHTML += '<th>Mã HP</th>';
@@ -1541,7 +1473,6 @@ function displayExamSchedule() {
     tableHTML += '<th>Báo danh</th>';
     tableHTML += '</tr></thead>';
     tableHTML += '<tbody>';
-    
     examScheduleData.forEach(exam => {
         tableHTML += '<tr>';
         tableHTML += `<td>${exam.stt}</td>`;
@@ -1555,26 +1486,18 @@ function displayExamSchedule() {
         tableHTML += `<td>${exam.baoDanh}</td>`;
         tableHTML += '</tr>';
     });
-    
     tableHTML += '</tbody>';
     tableHTML += '</table>';
-    // tableHTML += '</div>';
     tableHTML += '</table></div>';
-    
-    
     // Hiển thị bảng trong chat box
     const msgDiv = document.createElement('div');
     msgDiv.classList.add('message', 'bot-message');
     msgDiv.innerHTML = tableHTML;
     chatBox.appendChild(msgDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
-    
+    chatBox.scrollTop = chatBox.scrollHeight; 
 }
-
 // ============ BẢNG ĐIỂM ============
-
 // Dữ liệu bảng điểm
-
 const gradeData = [
     {
         stt: 1,
@@ -1649,15 +1572,10 @@ const gradeData = [
         danhGia: 'Đạt'
     }
 ];
-
 // Hàm hiển thị bảng điểm
-function displayGradeTable() {
-    
-    // let tableHTML = '<div class="schedule-header">BẢNG ĐIỂM CÁ NHÂN</div>';
+function displayGradeTable() {  
     let tableHTML = '<div class="schedule-header">BẢNG ĐIỂM CÁ NHÂN</div>';
-    // tableHTML += '<div class="exam-schedule-wrapper">';
     tableHTML += '<div class="table-responsive"><table class="exam-schedule-table">';
-    // tableHTML += '<table class="exam-schedule-table">';
     tableHTML += '<thead><tr>';
     tableHTML += '<th>STT</th>';
     tableHTML += '<th>Mã HP</th>';
@@ -1671,7 +1589,6 @@ function displayGradeTable() {
     tableHTML += '<th>Đánh giá</th>';
     tableHTML += '</tr></thead>';
     tableHTML += '<tbody>';
-    
     gradeData.forEach(grade => {
         tableHTML += '<tr>';
         tableHTML += `<td>${grade.stt}</td>`;
@@ -1686,12 +1603,9 @@ function displayGradeTable() {
         tableHTML += `<td>${grade.danhGia}</td>`;
         tableHTML += '</tr>';
     });
-    
     tableHTML += '</tbody>';
     tableHTML += '</table>';
-    // tableHTML += '</div>';
     tableHTML += '</table></div>';
-    
     // Hiển thị bảng trong chat box
     const msgDiv = document.createElement('div');
     msgDiv.classList.add('message', 'bot-message');
@@ -1699,7 +1613,6 @@ function displayGradeTable() {
     chatBox.appendChild(msgDiv);
     chatBox.scrollTop = chatBox.scrollHeight;
 }
-
 // Hàm xử lý menu
 function showContent(type) {
     if (type === 'TKB') {
@@ -1714,8 +1627,22 @@ function showContent(type) {
         // Hiển thị bảng điểm trong chat box
         displayGradeTable();
     }
+    else if (type === 'INFO') {
+        const schoolInfo = `
+### TRƯỜNG ĐẠI HỌC TÀI NGUYÊN VÀ MÔI TRƯỜNG HÀ NỘI
+* **Địa chỉ:** Số 41A đường Phú Diễn, Bắc Từ Liêm, Hà Nội.
+* **Hotline:** 0902.130.130
+* **Gmail:** DHTNMT@hunre.edu.vn
+### PHÒNG CHỨC NĂNG
+* **Phòng Công tác Sinh viên:** P404B, 405, 406 Tầng 4, Tòa B, Số 41A đường Phú Diễn, Q. Bắc Từ Liêm, TP. Hà Nội.
+* **Phòng Đào tạo:** Tầng 3, Tòa B, Số 41A đường Phú Diễn, Q. Bắc Từ Liêm, TP. Hà Nội.
+### WEBSITE HỌC ONLINE
+* [HUNRE E-LEARNING](https://lms.hunre.edu.vn/): Nền tảng học trực tuyến của trường, cung cấp tài liệu, bài giảng và diễn đàn thảo luận cho sinh viên.
+        `;
+        // Gọi hàm appendMessage để Bot gửi tin nhắn này vào khung chat
+        appendMessage(schoolInfo, 'bot');
+    }
 }
-
 </script>
 </body>
 </html>
